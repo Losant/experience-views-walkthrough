@@ -1,0 +1,277 @@
+{
+   "globals":[
+
+   ],
+   "triggers":[
+      {
+         "type":"endpoint",
+         "meta":{
+            "category":"trigger",
+            "name":"endpoint",
+            "label":"POST /login",
+            "x":260,
+            "y":180,
+            "uiId":"SywHdN5P6W",
+            "description":"When a user submits login credentials ..."
+         },
+         "config":{
+
+         },
+         "key":"",
+         "outputIds":[
+            [
+               "B1XrON5DTW"
+            ]
+         ]
+      },
+      {
+         "type":"endpoint",
+         "meta":{
+            "category":"trigger",
+            "name":"endpoint",
+            "label":"GET /login",
+            "x":460,
+            "y":180,
+            "uiId":"SJ_SOV5D6W",
+            "description":"When a user visits the login page ..."
+         },
+         "config":{
+
+         },
+         "key":"",
+         "outputIds":[
+            [
+               "B1XrON5DTW"
+            ]
+         ]
+      }
+   ],
+   "nodes":[
+      {
+         "type":"ExperienceUserAuthNode",
+         "meta":{
+            "category":"experience",
+            "name":"experience-user-auth",
+            "label":"Authenticate",
+            "x":360,
+            "y":480,
+            "description":"Do these credentials match an experience user?"
+         },
+         "config":{
+            "emailTemplate":"{{data.body.email}}",
+            "passwordTemplate":"{{data.body.password}}",
+            "ttlTemplate":"",
+            "userResultPath":"data.responseUser",
+            "tokenResultPath":"data.responseToken"
+         },
+         "id":"r1BuEcPab",
+         "outputIds":[
+            [
+               "BkxSdV9P6-"
+            ],
+            [
+               "r1-HdN5Dab"
+            ]
+         ]
+      },
+      {
+         "type":"EndpointReplyNode",
+         "meta":{
+            "category":"output",
+            "name":"endpoint-reply",
+            "label":"Login Failure",
+            "x":260,
+            "y":580,
+            "description":"Invalid credentials. Return the user to the login page and alert them of the error."
+         },
+         "config":{
+            "headerInfo":[
+
+            ],
+            "cookieInfo":[
+
+            ],
+            "replyType":"page",
+            "replyIdPath":"",
+            "responseCodeTemplate":"401",
+            "bodyTemplate":"{\n  \"loginFailure\": true,\n  \"email\": {{jsonEncode data.body.email}}\n}",
+            "bodyTemplateType":"json",
+            "pageIdTemplate":"",
+            "layoutIdTemplate":""
+         },
+         "id":"BkxSdV9P6-",
+         "outputIds":[
+            [
+               "SkfSONqvaW"
+            ]
+         ]
+      },
+      {
+         "type":"EndpointReplyNode",
+         "meta":{
+            "category":"output",
+            "name":"endpoint-reply",
+            "label":"Set cookie & redirect to home",
+            "x":460,
+            "y":580,
+            "description":"Successful login. Redirect the user to the home page and set the auth cookie for future requests."
+         },
+         "config":{
+            "headerInfo":[
+
+            ],
+            "cookieInfo":[
+               {
+                  "nameTemplate":"authorization",
+                  "valueTemplate":"{{data.responseToken}}",
+                  "maxAgeTemplate":""
+               }
+            ],
+            "replyType":"redirect",
+            "replyIdPath":"",
+            "responseCodeTemplate":"302",
+            "bodyTemplate":"/",
+            "bodyTemplateType":"string"
+         },
+         "id":"r1-HdN5Dab",
+         "outputIds":[
+            [
+               "SkfSONqvaW"
+            ]
+         ]
+      },
+      {
+         "type":"DebugNode",
+         "meta":{
+            "category":"output",
+            "name":"debug",
+            "label":"Debug",
+            "x":360,
+            "y":680,
+            "description":"Log the requests hitting these endpoints."
+         },
+         "config":{
+            "message":"",
+            "property":""
+         },
+         "id":"SkfSONqvaW",
+         "outputIds":[
+
+         ]
+      },
+      {
+         "type":"ConditionalNode",
+         "meta":{
+            "category":"logic",
+            "name":"conditional",
+            "label":"Logged in?",
+            "x":360,
+            "y":280,
+            "description":"Is the user logged in already?"
+         },
+         "config":{
+            "expression":"{{ experience.user }}"
+         },
+         "id":"B1XrON5DTW",
+         "outputIds":[
+            [
+               "r1NSOEcw6Z"
+            ],
+            [
+               "ryHSdE5vTZ"
+            ]
+         ]
+      },
+      {
+         "type":"EndpointReplyNode",
+         "meta":{
+            "category":"output",
+            "name":"endpoint-reply",
+            "label":"Go to /",
+            "x":660,
+            "y":580,
+            "description":"User is already logged in. Redirect them to the home page."
+         },
+         "config":{
+            "headerInfo":[
+
+            ],
+            "cookieInfo":[
+
+            ],
+            "replyType":"redirect",
+            "replyIdPath":"",
+            "responseCodeTemplate":"302",
+            "bodyTemplate":"/",
+            "bodyTemplateType":"string"
+         },
+         "id":"ryHSdE5vTZ",
+         "outputIds":[
+            [
+               "SkfSONqvaW"
+            ]
+         ]
+      },
+      {
+         "type":"ConditionalNode",
+         "meta":{
+            "category":"logic",
+            "name":"conditional",
+            "label":"POST request?",
+            "x":260,
+            "y":380,
+            "description":"Was this a submission of login credentials?"
+         },
+         "config":{
+            "expression":"{{ data.method }} == 'post'"
+         },
+         "id":"r1NSOEcw6Z",
+         "outputIds":[
+            [
+               "SyUrOE9wpW"
+            ],
+            [
+               "r1BuEcPab"
+            ]
+         ]
+      },
+      {
+         "type":"EndpointReplyNode",
+         "meta":{
+            "category":"output",
+            "name":"endpoint-reply",
+            "label":"Render Login",
+            "x":60,
+            "y":580,
+            "description":"Render the login page for the user."
+         },
+         "config":{
+            "headerInfo":[
+
+            ],
+            "cookieInfo":[
+
+            ],
+            "replyType":"page",
+            "replyIdPath":"",
+            "responseCodeTemplate":"200",
+            "bodyTemplate":"{\n  \"loginFailure\": false\n}",
+            "bodyTemplateType":"json",
+            "pageIdTemplate":"",
+            "layoutIdTemplate":""
+         },
+         "id":"SyUrOE9wpW",
+         "outputIds":[
+            [
+               "SkfSONqvaW"
+            ]
+         ]
+      }
+   ],
+   "name":"Endpoint /login",
+   "enabled":true,
+   "description":"A workflow managing the login page - both requests to view the page as well as submissions of login credentials.",
+   "applicationId":"",
+   "_type":"flow",
+   "_exportDate":"2017-11-02T19:36:57.353Z"
+}
