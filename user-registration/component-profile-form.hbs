@@ -1,0 +1,22 @@
+{{#if pageData.profileError}}
+  {{component "errorAlert" pageData.profileError}}
+{{/if}}
+<form method="post">
+  <div class="form-group">
+    <label for="firstName">First name</label>
+    <input autofocus minlength="1" maxlength="255" value="{{ pageData.firstName }}" type="text" class="form-control" name="firstName" id="firstName" placeholder="e.g. Jane">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input autofocus minlength="1" maxlength="255" required value="{{ pageData.lastName }}" type="text" class="form-control" name="lastName" id="lastName" placeholder="e.g. Doe">
+  </div>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input required value="{{ pageData.email }}" type="email" class="form-control" name="email" id="email" placeholder="e.g. test.user@example.com">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input required minlength="8" maxlength="255" type="password" class="form-control" id="password" name="password" placeholder="At least 8 characters">
+  </div>
+  <button type="submit" class="btn btn-success">Create My Account</button>
+</form>
