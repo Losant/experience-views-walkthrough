@@ -14,13 +14,13 @@
     <label for="email">Email address</label>
     <input required value="{{ pageData.email }}" type="email" class="form-control" name="email" id="email" placeholder="e.g. test.user@example.com">
   </div>
-  {{#eq request.path "/create-account"}}
+  {{#if experience.user}}
+    <button type="submit" class="btn btn-success">Update My Profile</button>
+  {{else}}
     <div class="form-group">
       <label for="password">Password</label>
       <input required minlength="8" maxlength="255" type="password" class="form-control" id="password" name="password" placeholder="At least 8 characters">
     </div>
     <button type="submit" class="btn btn-success">Create My Account</button>
-  {{else}}
-    <button type="submit" class="btn btn-success">Update My Profile</button>
-  {{/eq}}
+  {{/if}}
 </form>

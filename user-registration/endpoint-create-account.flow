@@ -1,394 +1,387 @@
 {
-   "globals":[
-
-   ],
-   "triggers":[
-      {
-         "type":"endpoint",
-         "meta":{
-            "category":"trigger",
-            "name":"endpoint",
-            "label":"POST /create-account",
-            "x":340,
-            "y":180,
-            "uiId":"r1P9Ay0vA-",
-            "description":"When a user submits account info ..."
-         },
-         "config":{
-
-         },
-         "key":"",
-         "outputIds":[
-            [
-               "ByQ50JRvA-"
-            ]
-         ]
+  "_exportDate": "2018-11-18T03:08:36.707Z",
+  "_type": "flow",
+  "customNodeVersions": [
+  ],
+  "customNodes": [
+  ],
+  "description": "",
+  "enabled": true,
+  "flowClass": "experience",
+  "globals": [
+  ],
+  "name": "Endpoint /create-account",
+  "nodes": [
+    {
+      "config": {
+        "bodyTemplate": "{\n  \"profileError\": {{jsonEncode errorMessage}},\n  \"firstName\": {{jsonEncode data.body.firstName}},\n  \"lastName\": {{jsonEncode data.body.lastName}},\n  \"email\": {{jsonEncode data.body.email}}\n}",
+        "bodyTemplateType": "json",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "layoutIdTemplate": "",
+        "pageIdTemplate": "",
+        "replyIdPath": "",
+        "replyType": "page",
+        "responseCodeTemplate": "401"
       },
-      {
-         "type":"endpoint",
-         "meta":{
-            "category":"trigger",
-            "name":"endpoint",
-            "label":"GET /create-account",
-            "x":540,
-            "y":180,
-            "uiId":"Syd9A10vCb",
-            "description":"When a user visits the account creation page ..."
-         },
-         "config":{
-
-         },
-         "key":"",
-         "outputIds":[
-            [
-               "ByQ50JRvA-"
-            ]
-         ]
-      }
-   ],
-   "nodes":[
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Creation Failure",
-            "x":260,
-            "y":980,
-            "description":"An error occurred. Render the account creation page with an error."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"page",
-            "replyIdPath":"",
-            "responseCodeTemplate":"401",
-            "bodyTemplate":"{\n  \"profileError\": {{jsonEncode errorMessage}},\n  \"firstName\": {{jsonEncode data.body.firstName}},\n  \"lastName\": {{jsonEncode data.body.lastName}},\n  \"email\": {{jsonEncode data.body.email}}\n}",
-            "bodyTemplateType":"json",
-            "pageIdTemplate":"",
-            "layoutIdTemplate":""
-         },
-         "id":"rkecRJ0PRZ",
-         "outputIds":[
-            [
-               "H1Gc0JCPRW"
-            ]
-         ]
+      "id": "rkecRJ0PRZ",
+      "meta": {
+        "category": "output",
+        "description": "An error occurred. Render the account creation page with an error.",
+        "label": "Creation Failure",
+        "name": "endpoint-reply",
+        "x": 260,
+        "y": 660
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Set cookie & redirect to home",
-            "x":460,
-            "y":980,
-            "description":"Successful creation. Redirect the user to the home page and set the auth cookie for future requests."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-               {
-                  "nameTemplate":"authorization",
-                  "valueTemplate":"{{authToken}}",
-                  "maxAgeTemplate":""
-               }
-            ],
-            "replyType":"redirect",
-            "replyIdPath":"",
-            "responseCodeTemplate":"302",
-            "bodyTemplate":"/",
-            "bodyTemplateType":"string"
-         },
-         "id":"BkZcCyCw0W",
-         "outputIds":[
-            [
-               "H1Gc0JCPRW"
-            ]
-         ]
+      "outputIds": [
+        [
+          "H1Gc0JCPRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "bodyTemplate": "/",
+        "bodyTemplateType": "string",
+        "cookieInfo": [
+          {
+            "maxAgeTemplate": "",
+            "nameTemplate": "authorization",
+            "valueTemplate": "{{authToken}}"
+          }
+        ],
+        "headerInfo": [
+        ],
+        "replyIdPath": "",
+        "replyType": "redirect",
+        "responseCodeTemplate": "302"
       },
-      {
-         "type":"DebugNode",
-         "meta":{
-            "category":"output",
-            "name":"debug",
-            "label":"Debug",
-            "x":360,
-            "y":1080,
-            "description":"Log the requests hitting these endpoints."
-         },
-         "config":{
-            "message":"",
-            "property":""
-         },
-         "id":"H1Gc0JCPRW",
-         "outputIds":[
-
-         ]
+      "id": "BkZcCyCw0W",
+      "meta": {
+        "category": "output",
+        "description": "Successful creation. Redirect the user to the home page and set the auth cookie for future requests.",
+        "label": "Set cookie & redirect to home",
+        "name": "endpoint-reply",
+        "x": 460,
+        "y": 660
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"Logged in?",
-            "x":440,
-            "y":280,
-            "description":"Is the user logged in already?"
-         },
-         "config":{
-            "expression":"{{ experience.user }}"
-         },
-         "id":"ByQ50JRvA-",
-         "outputIds":[
-            [
-               "r1EcR1CvR-"
-            ],
-            [
-               "ryBqAk0PC-"
-            ]
-         ]
+      "outputIds": [
+        [
+          "H1Gc0JCPRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "message": "",
+        "property": ""
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Go to /",
-            "x":660,
-            "y":980,
-            "description":"User is already logged in. Redirect them to the home page."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"redirect",
-            "replyIdPath":"",
-            "responseCodeTemplate":"302",
-            "bodyTemplate":"/",
-            "bodyTemplateType":"string"
-         },
-         "id":"ryBqAk0PC-",
-         "outputIds":[
-            [
-               "H1Gc0JCPRW"
-            ]
-         ]
+      "id": "H1Gc0JCPRW",
+      "meta": {
+        "category": "output",
+        "description": "Log the requests hitting these endpoints.",
+        "label": "Debug",
+        "name": "debug",
+        "x": 360,
+        "y": 760
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"POST request?",
-            "x":220,
-            "y":380,
-            "description":"Was this a submission of a new account?"
-         },
-         "config":{
-            "expression":"{{ data.method }} == 'post'"
-         },
-         "id":"r1EcR1CvR-",
-         "outputIds":[
-            [
-               "r1I50kAD0b"
-            ],
-            [
-               "ByMrhdd0W"
-            ]
-         ]
+      "outputIds": [
+      ],
+      "type": "DebugNode"
+    },
+    {
+      "config": {
+        "expression": "{{ experience.user }}"
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Render Create Account",
-            "x":60,
-            "y":980,
-            "description":"Render the create account page for the user."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"page",
-            "replyIdPath":"",
-            "responseCodeTemplate":"200",
-            "bodyTemplateType":"none",
-            "pageIdTemplate":"",
-            "layoutIdTemplate":""
-         },
-         "id":"r1I50kAD0b",
-         "outputIds":[
-            [
-               "H1Gc0JCPRW"
-            ]
-         ]
+      "id": "ByQ50JRvA-",
+      "meta": {
+        "category": "logic",
+        "description": "Is the user logged in already?",
+        "label": "Logged in?",
+        "name": "conditional",
+        "x": 440,
+        "y": 100
       },
-      {
-         "type":"ValidatePayloadNode",
-         "meta":{
-            "category":"logic",
-            "name":"validate-payload",
-            "label":"Validate Payload",
-            "x":320,
-            "y":480,
-            "description":"Validate the data submitted in the post request."
-         },
-         "config":{
-            "schema":"{\n\t\"type\": \"object\",\n  \"properties\": {\n    \"email\": {\n    \t\"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"firstName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"lastName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"password\": {\n      \"type\": \"string\",\n      \"minLength\": 8,\n      \"maxLength\": 255\n    }\n  },\n  \"required\": [\"firstName\", \"lastName\", \"email\", \"password\"],\n  \"additionalProperties\": false\n}",
-            "errorsPath":"",
-            "toValidatePath":"data.body"
-         },
-         "id":"ByMrhdd0W",
-         "outputIds":[
-            [
-               "Byx7hYdR-"
-            ],
-            [
-               "Sy6r2duCZ"
-            ]
-         ]
+      "outputIds": [
+        [
+          "r1EcR1CvR-"
+        ],
+        [
+          "ryBqAk0PC-"
+        ]
+      ],
+      "type": "ConditionalNode"
+    },
+    {
+      "config": {
+        "bodyTemplate": "/",
+        "bodyTemplateType": "string",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "replyIdPath": "",
+        "replyType": "redirect",
+        "responseCodeTemplate": "302"
       },
-      {
-         "type":"CreateExperienceUserNode",
-         "meta":{
-            "category":"experience",
-            "name":"create-experience-user",
-            "label":"Create User",
-            "x":400,
-            "y":580,
-            "description":"The payload is valid; attempt to create the user. This could still fail if (for example) there is already an experience user in your application with the same email address."
-         },
-         "config":{
-            "dataMethod":"payloadPath",
-            "resultPath":"userResponse",
-            "userPayloadPath":"data.body"
-         },
-         "id":"Sy6r2duCZ",
-         "outputIds":[
-            [
-               "H1p_aduCZ"
-            ]
-         ]
+      "id": "ryBqAk0PC-",
+      "meta": {
+        "category": "output",
+        "description": "User is already logged in. Redirect them to the home page.",
+        "label": "Go to /",
+        "name": "endpoint-reply",
+        "x": 660,
+        "y": 660
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"Success?",
-            "x":400,
-            "y":680,
-            "description":"Was the user creation attempt successful?"
-         },
-         "config":{
-            "expression":"{{userResponse.id}}"
-         },
-         "id":"H1p_aduCZ",
-         "outputIds":[
-            [
-               "HyEJ3YdRW"
-            ],
-            [
-               "SyPyZKO0-"
-            ]
-         ]
+      "outputIds": [
+        [
+          "H1Gc0JCPRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "expression": "{{ data.method }} == 'post'"
       },
-      {
-         "type":"ExperienceUserTokenNode",
-         "meta":{
-            "category":"experience",
-            "name":"experience-user-token",
-            "label":"Generate Token",
-            "x":460,
-            "y":780,
-            "description":""
-         },
-         "config":{
-            "emailOrIdTemplate":"{{userResponse.id}}",
-            "ttlTemplate":"",
-            "resultPath":"authToken",
-            "invalidateExistingTokens":false
-         },
-         "id":"SyPyZKO0-",
-         "outputIds":[
-            [
-               "BkZcCyCw0W"
-            ]
-         ]
+      "id": "r1EcR1CvR-",
+      "meta": {
+        "category": "logic",
+        "description": "Was this a submission of a new account?",
+        "label": "POST request?",
+        "name": "conditional",
+        "x": 220,
+        "y": 180
       },
-      {
-         "type":"MutateNode",
-         "meta":{
-            "category":"logic",
-            "name":"mutate",
-            "label":"Set Error Message",
-            "x":340,
-            "y":880,
-            "description":"Set a message describing what went wrong to the user."
-         },
-         "config":{
-            "rules":[
-               {
-                  "type":"set",
-                  "destination":"errorMessage",
-                  "valueTemplate":"{{userResponse.error.message}}"
-               }
-            ]
-         },
-         "id":"HyEJ3YdRW",
-         "outputIds":[
-            [
-               "rkecRJ0PRZ"
-            ]
-         ]
+      "outputIds": [
+        [
+          "r1I50kAD0b"
+        ],
+        [
+          "ByMrhdd0W"
+        ]
+      ],
+      "type": "ConditionalNode"
+    },
+    {
+      "config": {
+        "bodyTemplateType": "none",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "layoutIdTemplate": "",
+        "pageIdTemplate": "",
+        "replyIdPath": "",
+        "replyType": "page",
+        "responseCodeTemplate": "200"
       },
-      {
-         "type":"MutateNode",
-         "meta":{
-            "category":"logic",
-            "name":"mutate",
-            "label":"Set Error Message",
-            "x":220,
-            "y":780,
-            "description":"Tell the user he/she submitted incorrect credentials. It's rare that this node will be reached as we're catching validation errors in our page."
-         },
-         "config":{
-            "rules":[
-               {
-                  "type":"set",
-                  "destination":"errorMessage",
-                  "valueTemplate":"Invalid data submitted."
-               }
-            ]
-         },
-         "id":"Byx7hYdR-",
-         "outputIds":[
-            [
-               "rkecRJ0PRZ"
-            ]
-         ]
-      }
-   ],
-   "name":"Endpoint /create-account",
-   "enabled":true,
-   "description":"",
-   "applicationId":"",
-   "_type":"flow",
-   "_exportDate":"2017-11-02T19:10:51.628Z"
+      "id": "r1I50kAD0b",
+      "meta": {
+        "category": "output",
+        "description": "Render the create account page for the user.",
+        "label": "Render Create Account",
+        "name": "endpoint-reply",
+        "x": 60,
+        "y": 660
+      },
+      "outputIds": [
+        [
+          "H1Gc0JCPRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "errorsPath": "",
+        "schema": "{\n\t\"type\": \"object\",\n  \"properties\": {\n    \"email\": {\n    \t\"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"firstName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"lastName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"password\": {\n      \"type\": \"string\",\n      \"minLength\": 8,\n      \"maxLength\": 255\n    }\n  },\n  \"required\": [\"firstName\", \"lastName\", \"email\", \"password\"],\n  \"additionalProperties\": false\n}",
+        "toValidatePath": "data.body"
+      },
+      "id": "ByMrhdd0W",
+      "meta": {
+        "category": "logic",
+        "description": "Validate the data submitted in the post request.",
+        "label": "Validate Payload",
+        "name": "validate-payload",
+        "x": 320,
+        "y": 260
+      },
+      "outputIds": [
+        [
+          "Byx7hYdR-"
+        ],
+        [
+          "Sy6r2duCZ"
+        ]
+      ],
+      "type": "ValidatePayloadNode"
+    },
+    {
+      "config": {
+        "dataMethod": "payloadPath",
+        "resultPath": "userResponse",
+        "userPayloadPath": "data.body"
+      },
+      "id": "Sy6r2duCZ",
+      "meta": {
+        "category": "experience",
+        "description": "The payload is valid; attempt to create the user. This could still fail if (for example) there is already an experience user in your application with the same email address.",
+        "label": "Create User",
+        "name": "create-experience-user",
+        "x": 400,
+        "y": 340
+      },
+      "outputIds": [
+        [
+          "H1p_aduCZ"
+        ]
+      ],
+      "type": "CreateExperienceUserNode"
+    },
+    {
+      "config": {
+        "expression": "{{userResponse.id}}"
+      },
+      "id": "H1p_aduCZ",
+      "meta": {
+        "category": "logic",
+        "description": "Was the user creation attempt successful?",
+        "label": "Success?",
+        "name": "conditional",
+        "x": 400,
+        "y": 420
+      },
+      "outputIds": [
+        [
+          "HyEJ3YdRW"
+        ],
+        [
+          "SyPyZKO0-"
+        ]
+      ],
+      "type": "ConditionalNode"
+    },
+    {
+      "config": {
+        "emailOrIdTemplate": "{{userResponse.id}}",
+        "invalidateExistingTokens": false,
+        "resultPath": "authToken",
+        "ttlTemplate": ""
+      },
+      "id": "SyPyZKO0-",
+      "meta": {
+        "category": "experience",
+        "description": "",
+        "label": "Generate Token",
+        "name": "experience-user-token",
+        "x": 460,
+        "y": 500
+      },
+      "outputIds": [
+        [
+          "BkZcCyCw0W"
+        ]
+      ],
+      "type": "ExperienceUserTokenNode"
+    },
+    {
+      "config": {
+        "rules": [
+          {
+            "destination": "errorMessage",
+            "type": "set",
+            "valueTemplate": "{{userResponse.error.message}}"
+          }
+        ]
+      },
+      "id": "HyEJ3YdRW",
+      "meta": {
+        "category": "logic",
+        "description": "Set a message describing what went wrong to the user.",
+        "label": "Set Error Message",
+        "name": "mutate",
+        "x": 340,
+        "y": 580
+      },
+      "outputIds": [
+        [
+          "rkecRJ0PRZ"
+        ]
+      ],
+      "type": "MutateNode"
+    },
+    {
+      "config": {
+        "rules": [
+          {
+            "destination": "errorMessage",
+            "type": "set",
+            "valueTemplate": "Invalid data submitted."
+          }
+        ]
+      },
+      "id": "Byx7hYdR-",
+      "meta": {
+        "category": "logic",
+        "description": "Tell the user he/she submitted incorrect credentials. It's rare that this node will be reached as we're catching validation errors in our page.",
+        "label": "Set Error Message",
+        "name": "mutate",
+        "x": 220,
+        "y": 500
+      },
+      "outputIds": [
+        [
+          "rkecRJ0PRZ"
+        ]
+      ],
+      "type": "MutateNode"
+    }
+  ],
+  "triggers": [
+    {
+      "config": {
+      },
+      "key": "",
+      "meta": {
+        "category": "trigger",
+        "description": "When a user submits account info ...",
+        "label": "POST /create-account",
+        "name": "endpoint",
+        "uiId": "r1P9Ay0vA-",
+        "x": 340,
+        "y": 20
+      },
+      "outputIds": [
+        [
+          "ByQ50JRvA-"
+        ]
+      ],
+      "type": "endpoint"
+    },
+    {
+      "config": {
+      },
+      "key": "",
+      "meta": {
+        "category": "trigger",
+        "description": "When a user visits the account creation page ...",
+        "label": "GET /create-account",
+        "name": "endpoint",
+        "uiId": "Syd9A10vCb",
+        "x": 540,
+        "y": 20
+      },
+      "outputIds": [
+        [
+          "ByQ50JRvA-"
+        ]
+      ],
+      "type": "endpoint"
+    }
+  ]
 }

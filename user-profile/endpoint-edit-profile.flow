@@ -1,370 +1,311 @@
 {
-   "globals":[
-
-   ],
-   "triggers":[
-      {
-         "type":"endpoint",
-         "meta":{
-            "category":"trigger",
-            "name":"endpoint",
-            "label":"POST /edit-profile",
-            "x":160,
-            "y":180,
-            "uiId":"Bkncny9dC-",
-            "description":"When a user updates his/her account info ..."
-         },
-         "config":{
-
-         },
-         "key":"",
-         "outputIds":[
-            [
-               "Skzc3k5dAb"
-            ]
-         ]
+  "_exportDate": "2018-11-18T03:44:37.390Z",
+  "_type": "flow",
+  "customNodeVersions": [
+  ],
+  "customNodes": [
+  ],
+  "description": "",
+  "enabled": true,
+  "flowClass": "experience",
+  "globals": [
+  ],
+  "name": "Endpoint /edit-profile",
+  "nodes": [
+    {
+      "config": {
+        "bodyTemplate": "{\n  \"profileError\": {{jsonEncode errorMessage}},\n  \"firstName\": {{jsonEncode experience.user.firstName}},\n  \"lastName\": {{jsonEncode experience.user.lastName}},\n  \"email\": {{jsonEncode experience.user.email}}\n}",
+        "bodyTemplateType": "json",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "layoutIdTemplate": "",
+        "pageIdTemplate": "",
+        "replyIdPath": "",
+        "replyType": "page",
+        "responseCodeTemplate": "401"
       },
-      {
-         "type":"endpoint",
-         "meta":{
-            "category":"trigger",
-            "name":"endpoint",
-            "label":"GET /edit-profile",
-            "x":360,
-            "y":180,
-            "uiId":"Bypcny5OCW",
-            "description":"When a user visits the edit profile page ..."
-         },
-         "config":{
-
-         },
-         "key":"",
-         "outputIds":[
-            [
-               "Skzc3k5dAb"
-            ]
-         ]
-      }
-   ],
-   "nodes":[
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Update Failure",
-            "x":480,
-            "y":880,
-            "description":"An error occurred. Render the edit profile page with an error."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"page",
-            "replyIdPath":"",
-            "responseCodeTemplate":"401",
-            "bodyTemplate":"{\n  \"profileError\": {{jsonEncode errorMessage}},\n  \"firstName\": {{jsonEncode experience.user.firstName}},\n  \"lastName\": {{jsonEncode experience.user.lastName}},\n  \"email\": {{jsonEncode experience.user.email}}\n}",
-            "bodyTemplateType":"json",
-            "pageIdTemplate":"",
-            "layoutIdTemplate":""
-         },
-         "id":"Hy9h1qO0b",
-         "outputIds":[
-            [
-               "S1gqn19dRW"
-            ]
-         ]
+      "id": "Hy9h1qO0b",
+      "meta": {
+        "category": "output",
+        "description": "An error occurred. Render the edit profile page with an error.",
+        "label": "Update Failure",
+        "name": "endpoint-reply",
+        "x": 280,
+        "y": 620
       },
-      {
-         "type":"DebugNode",
-         "meta":{
-            "category":"output",
-            "name":"debug",
-            "label":"Debug",
-            "x":380,
-            "y":980,
-            "description":"Log the requests hitting these endpoints."
-         },
-         "config":{
-            "message":"",
-            "property":""
-         },
-         "id":"S1gqn19dRW",
-         "outputIds":[
-
-         ]
+      "outputIds": [
+        [
+          "S1gqn19dRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "message": "",
+        "property": ""
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"Logged in?",
-            "x":260,
-            "y":280,
-            "description":"Is the user logged in?"
-         },
-         "config":{
-            "expression":"{{ experience.user }}"
-         },
-         "id":"Skzc3k5dAb",
-         "outputIds":[
-            [
-               "SyObfq_CZ"
-            ],
-            [
-               "S1Qq3k9uCb"
-            ]
-         ]
+      "id": "S1gqn19dRW",
+      "meta": {
+        "category": "output",
+        "description": "Log the requests hitting these endpoints.",
+        "label": "Debug",
+        "name": "debug",
+        "x": 280,
+        "y": 720
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"POST request?",
-            "x":340,
-            "y":380,
-            "description":"Was this a form submission?"
-         },
-         "config":{
-            "expression":"{{ data.method }} == 'post'"
-         },
-         "id":"S1Qq3k9uCb",
-         "outputIds":[
-            [
-               "BJHqhkcO0W"
-            ],
-            [
-               "B1U9nycO0b"
-            ]
-         ]
+      "outputIds": [
+      ],
+      "type": "DebugNode"
+    },
+    {
+      "config": {
+        "expression": "{{ data.method }} == 'post'"
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Render Edit Profile",
-            "x":280,
-            "y":880,
-            "description":"Render the edit profile page for the user."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"page",
-            "replyIdPath":"",
-            "responseCodeTemplate":"200",
-            "bodyTemplate":"{\n\t\"firstName\": {{jsonEncode experience.user.firstName}},\n\t\"lastName\": {{jsonEncode experience.user.lastName}},\n\t\"email\": {{jsonEncode experience.user.email}}\n}",
-            "bodyTemplateType":"json",
-            "pageIdTemplate":"",
-            "layoutIdTemplate":""
-         },
-         "id":"BJHqhkcO0W",
-         "outputIds":[
-            [
-               "S1gqn19dRW"
-            ]
-         ]
+      "id": "S1Qq3k9uCb",
+      "meta": {
+        "category": "logic",
+        "description": "Was this a form submission?",
+        "label": "POST request?",
+        "name": "conditional",
+        "x": 160,
+        "y": 120
       },
-      {
-         "type":"ValidatePayloadNode",
-         "meta":{
-            "category":"logic",
-            "name":"validate-payload",
-            "label":"Validate Payload",
-            "x":480,
-            "y":480,
-            "description":"Validate the data sent. This is similar to the schema for account creation, except here, we do not allow password changes."
-         },
-         "config":{
-            "schema":"{\n\t\"type\": \"object\",\n  \"properties\": {\n    \"email\": {\n    \t\"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"firstName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"lastName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    }\n  },\n  \"required\": [\"firstName\", \"lastName\", \"email\"],\n  \"additionalProperties\": false\n}",
-            "errorsPath":"",
-            "toValidatePath":"data.body"
-         },
-         "id":"B1U9nycO0b",
-         "outputIds":[
-            [
-               "ryv9hJcOR-"
-            ],
-            [
-               "Hyncr5uA-"
-            ]
-         ]
+      "outputIds": [
+        [
+          "BJHqhkcO0W"
+        ],
+        [
+          "B1U9nycO0b"
+        ]
+      ],
+      "type": "ConditionalNode"
+    },
+    {
+      "config": {
+        "bodyTemplate": "{\n\t\"firstName\": {{jsonEncode experience.user.firstName}},\n\t\"lastName\": {{jsonEncode experience.user.lastName}},\n\t\"email\": {{jsonEncode experience.user.email}}\n}",
+        "bodyTemplateType": "json",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "layoutIdTemplate": "",
+        "pageIdTemplate": "",
+        "replyIdPath": "",
+        "replyType": "page",
+        "responseCodeTemplate": "200"
       },
-      {
-         "type":"ConditionalNode",
-         "meta":{
-            "category":"logic",
-            "name":"conditional",
-            "label":"Success?",
-            "x":660,
-            "y":680,
-            "description":""
-         },
-         "config":{
-            "expression":"{{userResponse.id}}"
-         },
-         "id":"ryYchJc_AZ",
-         "outputIds":[
-            [
-               "r1552J5dAW"
-            ],
-            [
-               "ryUL8c_Ab"
-            ]
-         ]
+      "id": "BJHqhkcO0W",
+      "meta": {
+        "category": "output",
+        "description": "Render the edit profile page for the user.",
+        "label": "Render Edit Profile",
+        "name": "endpoint-reply",
+        "x": 60,
+        "y": 620
       },
-      {
-         "type":"MutateNode",
-         "meta":{
-            "category":"logic",
-            "name":"mutate",
-            "label":"Set Error Message",
-            "x":580,
-            "y":780,
-            "description":""
-         },
-         "config":{
-            "rules":[
-               {
-                  "type":"set",
-                  "destination":"errorMessage",
-                  "valueTemplate":"{{userResponse.error.message}}"
-               }
-            ]
-         },
-         "id":"r1552J5dAW",
-         "outputIds":[
-            [
-               "Hy9h1qO0b"
-            ]
-         ]
+      "outputIds": [
+        [
+          "S1gqn19dRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    },
+    {
+      "config": {
+        "errorsPath": "",
+        "schema": "{\n\t\"type\": \"object\",\n  \"properties\": {\n    \"email\": {\n    \t\"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"firstName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    },\n    \"lastName\": {\n      \"type\": \"string\",\n      \"minLength\": 1,\n      \"maxLength\": 255\n    }\n  },\n  \"required\": [\"firstName\", \"lastName\", \"email\"],\n  \"additionalProperties\": false\n}",
+        "toValidatePath": "data.body"
       },
-      {
-         "type":"MutateNode",
-         "meta":{
-            "category":"logic",
-            "name":"mutate",
-            "label":"Set Error Message",
-            "x":380,
-            "y":780,
-            "description":""
-         },
-         "config":{
-            "rules":[
-               {
-                  "type":"set",
-                  "destination":"errorMessage",
-                  "valueTemplate":"Invalid data submitted."
-               }
-            ]
-         },
-         "id":"ryv9hJcOR-",
-         "outputIds":[
-            [
-               "Hy9h1qO0b"
-            ]
-         ]
+      "id": "B1U9nycO0b",
+      "meta": {
+        "category": "logic",
+        "description": "Validate the data sent. This is similar to the schema for account creation, except here, we do not allow password changes.",
+        "label": "Validate Payload",
+        "name": "validate-payload",
+        "x": 300,
+        "y": 220
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Go to /login",
-            "x":80,
-            "y":880,
-            "description":"User is not logged in. Redirect to the login page."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"redirect",
-            "replyIdPath":"",
-            "responseCodeTemplate":"302",
-            "bodyTemplate":"/login",
-            "bodyTemplateType":"string"
-         },
-         "id":"SyObfq_CZ",
-         "outputIds":[
-            [
-               "S1gqn19dRW"
-            ]
-         ]
+      "outputIds": [
+        [
+          "ryv9hJcOR-"
+        ],
+        [
+          "Hyncr5uA-"
+        ]
+      ],
+      "type": "ValidatePayloadNode"
+    },
+    {
+      "config": {
+        "expression": "{{userResponse.id}}"
       },
-      {
-         "type":"UpdateExperienceUserNode",
-         "meta":{
-            "category":"experience",
-            "name":"update-experience-user",
-            "label":"Update User",
-            "x":660,
-            "y":580,
-            "description":"Update the user's profile."
-         },
-         "config":{
-            "dataMethod":"payloadPath",
-            "resultPath":"userResponse",
-            "invalidateExistingTokens":false,
-            "emailOrIdTemplate":"{{experience.user.id}}",
-            "userPayloadPath":"data.body"
-         },
-         "id":"Hyncr5uA-",
-         "outputIds":[
-            [
-               "ryYchJc_AZ"
-            ]
-         ]
+      "id": "ryYchJc_AZ",
+      "meta": {
+        "category": "logic",
+        "description": "",
+        "label": "Success?",
+        "name": "conditional",
+        "x": 480,
+        "y": 420
       },
-      {
-         "type":"EndpointReplyNode",
-         "meta":{
-            "category":"output",
-            "name":"endpoint-reply",
-            "label":"Update Success",
-            "x":680,
-            "y":880,
-            "description":"Successfully updated the user. Redirect back to the edit profile page with a success message."
-         },
-         "config":{
-            "headerInfo":[
-
-            ],
-            "cookieInfo":[
-
-            ],
-            "replyType":"redirect",
-            "replyIdPath":"",
-            "responseCodeTemplate":"302",
-            "bodyTemplate":"/edit-profile?success=true",
-            "bodyTemplateType":"string"
-         },
-         "id":"ryUL8c_Ab",
-         "outputIds":[
-            [
-               "S1gqn19dRW"
-            ]
-         ]
-      }
-   ],
-   "name":"Endpoint /edit-profile",
-   "enabled":true,
-   "description":"",
-   "applicationId":"59fa4f7976b5470007a377b4",
-   "_type":"flow",
-   "_exportDate":"2017-11-02T20:50:44.232Z"
+      "outputIds": [
+        [
+          "r1552J5dAW"
+        ],
+        [
+          "ryUL8c_Ab"
+        ]
+      ],
+      "type": "ConditionalNode"
+    },
+    {
+      "config": {
+        "rules": [
+          {
+            "destination": "errorMessage",
+            "type": "set",
+            "valueTemplate": "{{userResponse.error.message}}"
+          }
+        ]
+      },
+      "id": "r1552J5dAW",
+      "meta": {
+        "category": "logic",
+        "description": "",
+        "label": "Set Error Message",
+        "name": "mutate",
+        "x": 380,
+        "y": 520
+      },
+      "outputIds": [
+        [
+          "Hy9h1qO0b"
+        ]
+      ],
+      "type": "MutateNode"
+    },
+    {
+      "config": {
+        "rules": [
+          {
+            "destination": "errorMessage",
+            "type": "set",
+            "valueTemplate": "Invalid data submitted."
+          }
+        ]
+      },
+      "id": "ryv9hJcOR-",
+      "meta": {
+        "category": "logic",
+        "description": "",
+        "label": "Set Error Message",
+        "name": "mutate",
+        "x": 180,
+        "y": 520
+      },
+      "outputIds": [
+        [
+          "Hy9h1qO0b"
+        ]
+      ],
+      "type": "MutateNode"
+    },
+    {
+      "config": {
+        "dataMethod": "payloadPath",
+        "emailOrIdTemplate": "{{experience.user.id}}",
+        "invalidateExistingTokens": false,
+        "resultPath": "userResponse",
+        "userPayloadPath": "data.body"
+      },
+      "id": "Hyncr5uA-",
+      "meta": {
+        "category": "experience",
+        "description": "Update the user's profile.",
+        "label": "Update User",
+        "name": "update-experience-user",
+        "x": 480,
+        "y": 320
+      },
+      "outputIds": [
+        [
+          "ryYchJc_AZ"
+        ]
+      ],
+      "type": "UpdateExperienceUserNode"
+    },
+    {
+      "config": {
+        "bodyTemplate": "/edit-profile?success=true",
+        "bodyTemplateType": "string",
+        "cookieInfo": [
+        ],
+        "headerInfo": [
+        ],
+        "replyIdPath": "",
+        "replyType": "redirect",
+        "responseCodeTemplate": "302"
+      },
+      "id": "ryUL8c_Ab",
+      "meta": {
+        "category": "output",
+        "description": "Successfully updated the user. Redirect back to the edit profile page with a success message.",
+        "label": "Update Success",
+        "name": "endpoint-reply",
+        "x": 500,
+        "y": 620
+      },
+      "outputIds": [
+        [
+          "S1gqn19dRW"
+        ]
+      ],
+      "type": "EndpointReplyNode"
+    }
+  ],
+  "triggers": [
+    {
+      "config": {
+      },
+      "key": "",
+      "meta": {
+        "category": "trigger",
+        "description": "When a user updates his/her account info ...",
+        "label": "POST /edit-profile",
+        "name": "endpoint",
+        "uiId": "Bkncny9dC-",
+        "x": 80,
+        "y": 20
+      },
+      "outputIds": [
+        [
+          "S1Qq3k9uCb"
+        ]
+      ],
+      "type": "endpoint"
+    },
+    {
+      "config": {
+      },
+      "key": "",
+      "meta": {
+        "category": "trigger",
+        "description": "When a user visits the edit profile page ...",
+        "label": "GET /edit-profile",
+        "name": "endpoint",
+        "uiId": "Bypcny5OCW",
+        "x": 280,
+        "y": 20
+      },
+      "outputIds": [
+        [
+          "S1Qq3k9uCb"
+        ]
+      ],
+      "type": "endpoint"
+    }
+  ]
 }
